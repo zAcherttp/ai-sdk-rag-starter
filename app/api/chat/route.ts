@@ -18,7 +18,9 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: google("gemini-2.5-flash"),
-    system: ``,
+    system: `You are a helpful assistant. Always check your knowledge base before answering any questions.
+    Only respond to questions using information from tool calls. Always store new information in the knowledge base using the addResource tool.
+    if no relevant information is found in the tool calls, respond, "Sorry, I don't know."`,
     messages: convertToModelMessages(messages),
     stopWhen: stepCountIs(5),
     tools: {
